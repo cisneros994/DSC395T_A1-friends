@@ -41,11 +41,21 @@ def load_pairs(filename):
     with open(filename, 'rt') as infile:
 
 # ------------ BEGIN YOUR CODE ------------
+        # Read the filename and place lines into list object
+        lines = infile.readlines()
 
-        
-        pass    # implement your code here
-
-
+        for line in lines:
+            # Remove whitespaces
+            line = " ".join(line.split())
+            # Split the names
+            line = line.split()
+            # Edge Case: 1 or 3+ names, ignore empty line
+            if len(line) == 2:
+                # Convert the 2 line items into a Tuple()
+                # Add tuple to list
+                list_of_pairs.append((line[0], line[1]))
+            elif len(line) > 3 or len(line) < 0:
+                print(f"Skipping the following line b/c input only allows 2 names: {line}")
 # ------------ END YOUR CODE ------------
 
     return list_of_pairs 
@@ -69,11 +79,19 @@ def make_friends_directory(pairs):
     directory = dict()
 
     # ------------ BEGIN YOUR CODE ------------
+    for name1, name2 in pairs:
+        #Edge Case: Ignore own-pairs (name1 = name2)
+        if name1 != name2:
+        # Creates a new key of 'name1' if it doesn't exist prior
+            if name1 not in directory:
+                directory[name1] = set()
+            # Adds 'name2' to Set object
+            # Set object removes duplicates b/c sets have unique values
+            directory[name1].add(name2)
 
-    
-    pass    # implement your code here
-
-
+            if name2 not in directory:
+                directory[name2] = set()
+            directory[name2].add(name1)
     # ------------ END YOUR CODE ------------
 
     return directory
@@ -84,16 +102,19 @@ def find_all_number_of_friends(my_dir):
 
     Returns a sorted (in decreasing order by number of friends) list 
     of 2-tuples, where each tuples has the person's name as the first element,
-    the the number of friends as the second element.
+    the number of friends as the second element.
     """
     friends_list = []
 
     # ------------ BEGIN YOUR CODE ------------
+    # Create list of Tuples(person, # friends)
+    friends_list =[(key, len(friends)) for key, friends in my_dir.items()]
 
+    # 1st sort: # of friends in descending order (-x[1]) (can't use reverse=true b/c of 2nd sort)
+    # 2nd sort: ASCII order in ascending order (x[0])
+    friends_list = sorted(friends_list, key =lambda x:(-x[1], x[0]))
 
-    pass    # implement your code here
-    
-
+    # Edge cases (if we can't use previous input): 0 friends, empty dict
     # ------------ END YOUR CODE ------------
 
     return friends_list
@@ -153,7 +174,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('myfriends.txt')
+    my_pairs = load_pairs('testfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')

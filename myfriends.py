@@ -108,7 +108,7 @@ def find_all_number_of_friends(my_dir):
 
     # ------------ BEGIN YOUR CODE ------------
     # Create list of Tuples(person, # friends)
-    friends_list =[(key, len(friends)) for key, friends in my_dir.items()]
+    friends_list =[(key, len(values)) for key, values in my_dir.items()]
 
     # 1st sort: # of friends in descending order (-x[1]) (can't use reverse=true b/c of 2nd sort)
     # 2nd sort: ASCII order in ascending order (x[0])

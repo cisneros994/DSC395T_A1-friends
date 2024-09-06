@@ -49,12 +49,13 @@ def load_pairs(filename):
             line = " ".join(line.split())
             # Split the names
             line = line.split()
+            # Add potential edge cases where names have some other separator
             # Edge Case: 1 or 3+ names, ignore empty line
             if len(line) == 2:
                 # Convert the 2 line items into a Tuple()
                 # Add tuple to list
                 list_of_pairs.append((line[0], line[1]))
-            elif len(line) > 3 or len(line) < 0:
+            elif len(line) > 2 or len(line) < 2: # if line length is not equal to 2
                 print(f"Skipping the following line b/c input only allows 2 names: {line}")
 # ------------ END YOUR CODE ------------
 
@@ -85,8 +86,8 @@ def make_friends_directory(pairs):
         # Creates a new key of 'name1' if it doesn't exist prior
             if name1 not in directory:
                 directory[name1] = set()
-            # Adds 'name2' to Set object
-            # Set object removes duplicates b/c sets have unique values
+                # Adds 'name2' to Set object
+                # Set object removes duplicates b/c sets have unique values
             directory[name1].add(name2)
 
             if name2 not in directory:

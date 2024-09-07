@@ -144,9 +144,16 @@ def make_team_roster(person, my_dir):
 
     # ------------ BEGIN YOUR CODE ------------
 
-    
-    pass    # implement your code here
+    team = my_dir[person] # create team set
 
+    for x in my_dir[person]: # for each friend of a person
+        team = team.union(my_dir[x]) # combine friend's set of friends with 'person' set of friends
+
+    team.discard(person) # remove team leader name from set (discard should do nothing if 'person' not in set)
+    team_list = sorted(list(team)) #convert to list and sort ASCII order
+    team_list.insert(0, person) # add team leader to start of list
+    label = '_'.join(team_list) # convert to string
+    # they already defined 'label' above, maybe this isn't the right way to do this then?
 
     # ------------ END YOUR CODE ------------
 
@@ -161,10 +168,19 @@ def find_smallest_team(my_dir):
 
     # ------------ BEGIN YOUR CODE
 
+    roster_list = []
 
-    pass    # implement your code here
+    # Create list of Tuples(person, # team members)
+    for key in my_dir:
+        roster = make_team_roster(key, my_dir) # get roster str
+        team_length = roster.count('_') # get roster length
+        roster_list.append((roster, team_length)) # add tuple to list
 
-    
+    # 1st sort: # of teammates in ascending order (x[1])
+    # 2nd sort: ASCII order in ascending order (x[0])
+    roster_list = sorted(roster_list, key=lambda x: (x[1], x[0])) #sort list
+    smallest_teams = roster_list[0] # grab first in roster list, should be smallest team
+
     # ------------ END YOUR CODE
 
     return smallest_teams[0] if smallest_teams else ""

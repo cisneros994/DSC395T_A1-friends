@@ -53,11 +53,15 @@ def load_pairs(filename):
             # Edge Case: not 2 names, and empty lines
             if len(line) == 2:
                 # Convert the 2 line items into a Tuple()
+                # Capitalize names
                 # Add tuple to list
-                list_of_pairs.append((line[0], line[1]))
+                list_of_pairs.append(((line[0]).upper(), (line[1]).upper()))
             # May delete later
             elif len(line) != 2:
                 print(f"Skipping the following line b/c input only allows 2 names: {line}")
+
+            # QUESTION
+            # Edge case: "Adam Adam Eve" How do we handle this case? (1) Would we ignore the line b/c 3 inputs, or would output be (2) (ADAM, EVE) or (3) (ADAM, ADAM)?
 # ------------ END YOUR CODE ------------
 
     return list_of_pairs 
@@ -115,8 +119,6 @@ def find_all_number_of_friends(my_dir):
     # 1st sort: # of friends in descending order (-x[1]) (can't use reverse=true b/c of 2nd sort)
     # 2nd sort: ASCII order in ascending order (x[0])
     friends_list = sorted(friends_list, key =lambda x:(-x[1], x[0]))
-
-    # Edge cases (if we can't use previous input): 0 friends, empty dict
     # ------------ END YOUR CODE ------------
 
     return friends_list
@@ -144,6 +146,10 @@ def make_team_roster(person, my_dir):
     label = person
 
     # ------------ BEGIN YOUR CODE ------------
+    # QUESTION
+    # Edge Case: When "person" is not in "my_dir" --> not sure how to fix this since we shouldn't touch the code in 'assert person in my_dir'
+    # If person has no friends in "my_dir", team should be empty
+    # Refer to "Clarification on provided code for make_team_roster() in Ed discussions
 
     team = my_dir[person] # create team set
 
@@ -151,10 +157,11 @@ def make_team_roster(person, my_dir):
         team = team.union(my_dir[x]) # combine friend's set of friends with 'person' set of friends
 
     team.discard(person) # remove team leader name from set (discard should do nothing if 'person' not in set)
-    team_list = sorted(list(team)) #convert to list and sort ASCII order
-    team_list.insert(0, person) # add team leader to start of list
-    label = '_'.join(team_list) # convert to string
+    team = sorted(team) #convert to list and sort ASCII order #'sorted' automatically converts team from set to list
+    team.insert(0, person) # add team leader to start of list
+    label = '_'.join(team) # convert to string
     # they already defined 'label' above, maybe this isn't the right way to do this then?
+    # Answer: I think this way is fine, since it doesn't hinder Big-O's time anyways (this is O(n), and sorted = O(nlogn) which is larger). Not sure why they defined 'label' either
 
     # ------------ END YOUR CODE ------------
 
@@ -169,19 +176,32 @@ def find_smallest_team(my_dir):
 
     # ------------ BEGIN YOUR CODE
 
-    roster_list = []
+    # roster_list = []
+    roster_smallest = None
+    team_length_smallest = float('inf')
 
     # Create list of Tuples(person, # team members)
     for key in my_dir:
         roster = make_team_roster(key, my_dir) # get roster str
         team_length = roster.count('_') # get roster length
-        roster_list.append((roster, team_length)) # add tuple to list
+        # More efficient way, smaller Big-O:
+        # 1) Check if new team is smaller than the smallest team we've stored already
+        # 2) If team length is the same size, check for smaller # for ASCII order. Initiate roster_smallest value with 1st key
+        if team_length < team_length_smallest or (team_length == team_length_smallest and (roster_smallest is None or roster < roster_smallest)):
+            #roster_list.append((roster, team_length)) # add tuple to list #delete
+            team_length_smallest = team_length
+            roster_smallest = roster
 
+    #Delete
+    '''
     # 1st sort: # of teammates in ascending order (x[1])
     # 2nd sort: ASCII order in ascending order (x[0])
     roster_list = sorted(roster_list, key=lambda x: (x[1], x[0])) #sort list
     smallest_teams = roster_list[0] # grab first in roster list, should be smallest team
-
+    '''
+    # QUESTION
+    # I ~believe~ it should be returning the full roster, not just the leader?
+    smallest_teams.insert(0, (roster_smallest, team_length_smallest))
     # ------------ END YOUR CODE
 
     return smallest_teams[0] if smallest_teams else ""
@@ -192,7 +212,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('testfriends.txt')
+    my_pairs = load_pairs('2testfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -211,9 +231,12 @@ if __name__ == '__main__':
     print(find_smallest_team(my_dir))
 
     print('\n6. run Friends iterator')
-    friends_iterator = Friends(my_dir)
-    for num, pair in enumerate(friends_iterator):
-        print(num, pair)
-        if num == 10:
-            break
-    print(len(list(friends_iterator)) + num)
+    # Correction from Ed discussions named "possible small error in provided code"
+    print(len(list(friends_iterator)))
+    # friends_iterator = Friends(my_dir)
+    # for num, pair in enumerate(friends_iterator):
+        # print(num, pair)
+        # if num == 10:
+            # break
+    # Correction from Ed discussions named "possible small error in provided code"
+    # print(len(list(friends_iterator)) + num + 1)

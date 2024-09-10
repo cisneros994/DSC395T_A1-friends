@@ -50,19 +50,13 @@ def load_pairs(filename):
             # Split the names
             line = line.split()
             # Add potential edge cases where names have some other separator: tested - space, tab, multiple spaces/tabs
-            # Edge Case: not 2 names, and empty lines
+            # Edge Case: remove empty lines
             if len(line) == 2:
                 # Convert the 2 line items into a Tuple()
                 # Capitalize names
                 # Add tuple to list
                 list_of_pairs.append(((line[0]).upper(), (line[1]).upper()))
-            ''' DELETE: They claim that there will be no cases where there will only have 1 or 3+ names in Ed Discussion
-            elif len(line) != 2:
-                print(f"Skipping the following line b/c input only allows 2 names: {line}")
-            '''
-            # QUESTION
-            # LC Other potential edge case - convert everything to all caps?
-            #Answer: I already corrected that in the previous revision by doing .upper() in line 58
+
 # ------------ END YOUR CODE ------------
 
     return list_of_pairs 
@@ -147,10 +141,6 @@ def make_team_roster(person, my_dir):
     label = person
 
     # ------------ BEGIN YOUR CODE ------------
-    # QUESTION
-    # Edge Case: When "person" is not in "my_dir" --> not sure how to fix this since we shouldn't touch the code in 'assert person in my_dir'
-    # If person has no friends in "my_dir", team should be empty
-    # Refer to "Clarification on provided code for make_team_roster() in Ed discussions
 
     team = my_dir[person] # create team set
 
@@ -161,8 +151,6 @@ def make_team_roster(person, my_dir):
     team = sorted(team) #convert to list and sort ASCII order #'sorted' automatically converts team from set to list
     team.insert(0, person) # add team leader to start of list
     label = '_'.join(team) # convert to string
-    # they already defined 'label' above, maybe this isn't the right way to do this then?
-    # Answer: I think this way is fine, since it doesn't hinder Big-O's time anyways (this is O(n), and sorted = O(nlogn) which is larger). Not sure why they defined 'label' either
 
     # ------------ END YOUR CODE ------------
 
@@ -193,15 +181,12 @@ def find_smallest_team(my_dir):
             team_length_smallest = team_length
             roster_smallest = roster
 
-    #Delete
     '''
     # 1st sort: # of teammates in ascending order (x[1])
     # 2nd sort: ASCII order in ascending order (x[0])
     roster_list = sorted(roster_list, key=lambda x: (x[1], x[0])) #sort list
     smallest_teams = roster_list[0] # grab first in roster list, should be smallest team
     '''
-    # Edge Case: if empty file (i.e. my_dir = empty)
-    # QUESTION: Currently throwing out Traceback error b/c 'my_dir' is not defined if empty file(?)
     if bool(my_dir):
         smallest_teams.insert(0, (roster_smallest, team_length_smallest))
     # ------------ END YOUR CODE

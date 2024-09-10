@@ -234,7 +234,7 @@ if __name__ == '__main__':
 
     print('\n6. run Friends iterator')
     friends_iterator = Friends(my_dir)
-    # Correction from Ed discussions named "possible small error in provided code"
+    # Corrections from Ed discussions named "possible small error in provided code"
     print(len(list(friends_iterator)))
     '''
     # for num, pair in enumerate(friends_iterator):

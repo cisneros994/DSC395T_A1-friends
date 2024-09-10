@@ -62,6 +62,8 @@ def load_pairs(filename):
 
             # QUESTION
             # Edge case: "Adam Adam Eve" How do we handle this case? (1) Would we ignore the line b/c 3 inputs, or would output be (2) (ADAM, EVE) or (3) (ADAM, ADAM)?
+            # LC I think ignore the line (plus they confirmed they won't be doing inputs with multiple lines
+            # LC Other potential edge case - convert everything to all caps?
 # ------------ END YOUR CODE ------------
 
     return list_of_pairs 
@@ -201,7 +203,10 @@ def find_smallest_team(my_dir):
     '''
     # QUESTION
     # I ~believe~ it should be returning the full roster, not just the leader?
+    # Yes, correct!
     smallest_teams.insert(0, (roster_smallest, team_length_smallest))
+    # QUESTION
+    # LC if we get a blank file - this will return None - are we ok with that?
     # ------------ END YOUR CODE
 
     return smallest_teams[0] if smallest_teams else ""

@@ -217,7 +217,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('2testfriends.txt')
+    my_pairs = load_pairs('myfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -237,11 +237,11 @@ if __name__ == '__main__':
 
     print('\n6. run Friends iterator')
     # Correction from Ed discussions named "possible small error in provided code"
-    print(len(list(friends_iterator)))
-    # friends_iterator = Friends(my_dir)
-    # for num, pair in enumerate(friends_iterator):
-        # print(num, pair)
-        # if num == 10:
-            # break
+    friends_iterator = Friends(my_dir)
+    for num, pair in enumerate(friends_iterator):
+        print(num, pair)
+        if num == 10:
+            break
     # Correction from Ed discussions named "possible small error in provided code"
     # print(len(list(friends_iterator)) + num + 1)
+    print(len(list(friends_iterator)))

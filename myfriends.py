@@ -49,21 +49,20 @@ def load_pairs(filename):
             line = " ".join(line.split())
             # Split the names
             line = line.split()
-            # Add potential edge cases where names have some other separator
+            # Add potential edge cases where names have some other separator: tested - space, tab, multiple spaces/tabs
             # Edge Case: not 2 names, and empty lines
             if len(line) == 2:
                 # Convert the 2 line items into a Tuple()
                 # Capitalize names
                 # Add tuple to list
                 list_of_pairs.append(((line[0]).upper(), (line[1]).upper()))
-            # May delete later
+            ''' DELETE: They claim that there will be no cases where there will only have 1 or 3+ names in Ed Discussion
             elif len(line) != 2:
                 print(f"Skipping the following line b/c input only allows 2 names: {line}")
-
+            '''
             # QUESTION
-            # Edge case: "Adam Adam Eve" How do we handle this case? (1) Would we ignore the line b/c 3 inputs, or would output be (2) (ADAM, EVE) or (3) (ADAM, ADAM)?
-            # LC I think ignore the line (plus they confirmed they won't be doing inputs with multiple lines
             # LC Other potential edge case - convert everything to all caps?
+            #Answer: I already corrected that in the previous revision by doing .upper() in line 58
 # ------------ END YOUR CODE ------------
 
     return list_of_pairs 
@@ -201,12 +200,10 @@ def find_smallest_team(my_dir):
     roster_list = sorted(roster_list, key=lambda x: (x[1], x[0])) #sort list
     smallest_teams = roster_list[0] # grab first in roster list, should be smallest team
     '''
-    # QUESTION
-    # I ~believe~ it should be returning the full roster, not just the leader?
-    # Yes, correct!
-    smallest_teams.insert(0, (roster_smallest, team_length_smallest))
-    # QUESTION
-    # LC if we get a blank file - this will return None - are we ok with that?
+    # Edge Case: if empty file (i.e. my_dir = empty)
+    # QUESTION: Currently throwing out Traceback error b/c 'my_dir' is not defined if empty file(?)
+    if bool(my_dir):
+        smallest_teams.insert(0, (roster_smallest, team_length_smallest))
     # ------------ END YOUR CODE
 
     return smallest_teams[0] if smallest_teams else ""
@@ -217,7 +214,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('2testfriends.txt')
+    my_pairs = load_pairs('testfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -228,20 +225,21 @@ if __name__ == '__main__':
     print(find_all_number_of_friends(my_dir))
 
     print('\n4. run make_team_roster')
-    my_person = 'DARTHVADER'   # test with this person as team leader
+    my_person = 'LEIA'   # test with this person as team leader
     team_roster = make_team_roster(my_person, my_dir)
-    print(team_roster) 
+    print(team_roster)
 
     print('\n5. run find_smallest_team')
     print(find_smallest_team(my_dir))
 
     print('\n6. run Friends iterator')
+    friends_iterator = Friends(my_dir)
     # Correction from Ed discussions named "possible small error in provided code"
     print(len(list(friends_iterator)))
-    # friends_iterator = Friends(my_dir)
+    '''
     # for num, pair in enumerate(friends_iterator):
         # print(num, pair)
         # if num == 10:
             # break
-    # Correction from Ed discussions named "possible small error in provided code"
     # print(len(list(friends_iterator)) + num + 1)
+    '''

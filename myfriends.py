@@ -165,7 +165,7 @@ def find_smallest_team(my_dir):
 
     # ------------ BEGIN YOUR CODE
 
-    # roster_list = []
+    #roster_list = []
     roster_smallest = None
     team_length_smallest = float('inf')
 
@@ -173,6 +173,7 @@ def find_smallest_team(my_dir):
     for key in my_dir:
         roster = make_team_roster(key, my_dir) # get roster str
         team_length = roster.count('_') # get roster length
+
         # More efficient way, smaller Big-O:
         # 1) Check if new team is smaller than the smallest team we've stored already
         # 2) If team length is the same size, check for smaller # for ASCII order. Initiate roster_smallest value with 1st key
@@ -181,14 +182,9 @@ def find_smallest_team(my_dir):
             team_length_smallest = team_length
             roster_smallest = roster
 
-    '''
-    # 1st sort: # of teammates in ascending order (x[1])
-    # 2nd sort: ASCII order in ascending order (x[0])
-    roster_list = sorted(roster_list, key=lambda x: (x[1], x[0])) #sort list
-    smallest_teams = roster_list[0] # grab first in roster list, should be smallest team
-    '''
+    # Edge Case: check if my_dir is empty
     if bool(my_dir):
-        smallest_teams.insert(0, (roster_smallest, team_length_smallest))
+        smallest_teams.insert(0, roster_smallest)
     # ------------ END YOUR CODE
 
     return smallest_teams[0] if smallest_teams else ""
@@ -210,7 +206,7 @@ if __name__ == '__main__':
     print(find_all_number_of_friends(my_dir))
 
     print('\n4. run make_team_roster')
-    my_person = 'LEIA'   # test with this person as team leader
+    my_person = 'HAN'   # test with this person as team leader
     team_roster = make_team_roster(my_person, my_dir)
     print(team_roster)
 
@@ -218,13 +214,11 @@ if __name__ == '__main__':
     print(find_smallest_team(my_dir))
 
     print('\n6. run Friends iterator')
-    friends_iterator = Friends(my_dir)
+
     # Corrections from Ed discussions named "possible small error in provided code"
+    friends_iterator = Friends(my_dir)
+    for num, pair in enumerate(friends_iterator):
+        print(num, pair)
+        if num == 10:
+            break
     print(len(list(friends_iterator)))
-    '''
-    # for num, pair in enumerate(friends_iterator):
-        # print(num, pair)
-        # if num == 10:
-            # break
-    # print(len(list(friends_iterator)) + num + 1)
-    '''

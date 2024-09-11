@@ -47,7 +47,8 @@ class Friends(Iterator):
             test=1
         else:
             # handle edge case when input is an empty directory
-            self.person = []
+            # CORRECTED: changed to .person to .persons to handle empty text files
+            self.persons = []
 
     def __iter__(self) -> Iterator:
 
@@ -68,7 +69,7 @@ class Friends(Iterator):
             self.friends = sorted([s for s in self.dir[self.persons[0]]
                                     if s > self.persons[0]])
         # return the next friendship pair as a tuple
-        # Changed from .pop() to .pop(0) to return the first string in each list b/c ascending ASCII order
+        # CORRECTED: Changed from .pop() to .pop(0) to return the first string in each list b/c ascending ASCII order
         return (self.persons[0], self.friends.pop(0))
 
     # ------------ END DEBUG ------------

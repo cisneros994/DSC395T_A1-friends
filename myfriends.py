@@ -195,7 +195,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('2testfriends.txt')
+    my_pairs = load_pairs('testfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -206,7 +206,7 @@ if __name__ == '__main__':
     print(find_all_number_of_friends(my_dir))
     '''
     print('\n4. run make_team_roster')
-    my_person = 'CAROLINE'   # test with this person as team leader
+    my_person = 'HAN'   # test with this person as team leader
     team_roster = make_team_roster(my_person, my_dir)
     print(team_roster)
     '''
@@ -221,4 +221,7 @@ if __name__ == '__main__':
         print(num, pair)
         if num == 10:
             break
+    # print(len(list(friends_iterator)))
+    # LC - I think the original length code was correct - the other one comes out as 0
+    print(len(list(friends_iterator)) + num + 1)
     print(len(list(friends_iterator)))

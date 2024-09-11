@@ -42,7 +42,7 @@ class Friends(Iterator):
             # initially, `persons` is list of all keys; 
             # and `friends` is list of the first person's friends
             self.persons = sorted(friends_dir.keys())
-            self.friends = sorted(friends_dir[self.persons[0]])
+            self.friends = sorted(friends_dir[self.persons[0]], reverse=True)
         else:
             # handle edge case when input is an empty directory
             # CORRECTED: changed to .person to .persons to handle empty text files
@@ -68,6 +68,8 @@ class Friends(Iterator):
                                     if s > self.persons[0]])
         # return the next friendship pair as a tuple
         # CORRECTED: Changed from .pop() to .pop(0) to return the first string in each list b/c ascending ASCII order
-        return (self.persons[0], self.friends.pop(0))
+        # LC - removing this change and instead adding reverse = TRUE above - I think that may be more efficient
+        # LC - pop(0) requires an O(n) shift in the array every time
+        return (self.persons[0], self.friends.pop())
 
     # ------------ END DEBUG ------------

@@ -195,7 +195,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('testfriends.txt')
+    my_pairs = load_pairs('empty.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -204,12 +204,12 @@ if __name__ == '__main__':
 
     print('\n3. run find_all_number_of_friends')
     print(find_all_number_of_friends(my_dir))
-
+    '''
     print('\n4. run make_team_roster')
-    my_person = 'HAN'   # test with this person as team leader
+    my_person = 'CAROLINE'   # test with this person as team leader
     team_roster = make_team_roster(my_person, my_dir)
     print(team_roster)
-
+    '''
     print('\n5. run find_smallest_team')
     print(find_smallest_team(my_dir))
 
@@ -219,6 +219,6 @@ if __name__ == '__main__':
     friends_iterator = Friends(my_dir)
     for num, pair in enumerate(friends_iterator):
         print(num, pair)
-        if num == 10:
+        if num == 100:
             break
     print(len(list(friends_iterator)))

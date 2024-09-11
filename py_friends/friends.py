@@ -1,4 +1,5 @@
 """Friends iterator class to return pairs of friends"""
+from audioop import reverse
 #
 # The code for the Friends class below contains a small number of bugs: 
 # Please find and correct them so that the class meets the specifications 
@@ -42,7 +43,8 @@ class Friends(Iterator):
             # and `friends` is list of the first person's friends
             self.persons = sorted(friends_dir.keys())
             self.friends = sorted(friends_dir[self.persons[0]])
-
+            #self.friends = sorted([friend for friend in friends_dir[self.persons[0]] if friend > self.persons[0]])
+            test=1
         else:
             # handle edge case when input is an empty directory
             self.person = []
@@ -57,7 +59,6 @@ class Friends(Iterator):
             raise StopIteration
 
         while not self.friends:
-
             # try to move on to next person in `persons` list
             self.persons.pop(0)
             if not self.persons: # stop iterating since there is no next person
@@ -66,8 +67,8 @@ class Friends(Iterator):
             # set `friends` to be list of friends of next person
             self.friends = sorted([s for s in self.dir[self.persons[0]]
                                     if s > self.persons[0]])
-
         # return the next friendship pair as a tuple
-        return (self.persons[0], self.friends.pop())
+        # Changed from .pop() to .pop(0) to return the first string in each list b/c ascending ASCII order
+        return (self.persons[0], self.friends.pop(0))
 
     # ------------ END DEBUG ------------

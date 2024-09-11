@@ -43,8 +43,6 @@ class Friends(Iterator):
             # and `friends` is list of the first person's friends
             self.persons = sorted(friends_dir.keys())
             self.friends = sorted(friends_dir[self.persons[0]])
-            #self.friends = sorted([friend for friend in friends_dir[self.persons[0]] if friend > self.persons[0]])
-            test=1
         else:
             # handle edge case when input is an empty directory
             # CORRECTED: changed to .person to .persons to handle empty text files

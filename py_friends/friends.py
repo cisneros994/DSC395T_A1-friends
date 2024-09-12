@@ -65,7 +65,7 @@ class Friends(Iterator):
 
             # set `friends` to be list of friends of next person
             self.friends = sorted([s for s in self.dir[self.persons[0]]
-                                    if s > self.persons[0]])
+                                    if s > self.persons[0]], reverse=True)
         # return the next friendship pair as a tuple
         # CORRECTED: Changed from .pop() to .pop(0) to return the first string in each list b/c ascending ASCII order
         # LC - removing this change and instead adding reverse = TRUE above - I think that may be more efficient

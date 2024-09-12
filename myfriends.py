@@ -41,7 +41,7 @@ def load_pairs(filename):
     with open(filename, 'rt') as infile:
 
 # ------------ BEGIN YOUR CODE ------------
-        # Read the filename and place lines into list object
+        # Read the filename and place lines into list object #test123
         lines = infile.readlines()
 
         for line in lines:
@@ -195,7 +195,7 @@ if __name__ == '__main__':
     # To run and examine your function calls
 
     print('\n1. run load_pairs')
-    my_pairs = load_pairs('testfriends.txt')
+    my_pairs = load_pairs('2testfriends.txt')
     print(my_pairs)
 
     print('\n2. run make_directory')
@@ -219,9 +219,9 @@ if __name__ == '__main__':
     friends_iterator = Friends(my_dir)
     for num, pair in enumerate(friends_iterator):
         print(num, pair)
-        if num == 10:
+        if num == 50:
             break
     # print(len(list(friends_iterator)))
     # LC - I think the original length code was correct - the other one comes out as 0
-    print(len(list(friends_iterator)) + num + 1)
+    #print(len(list(friends_iterator)) + num + 1)
     print(len(list(friends_iterator)))
